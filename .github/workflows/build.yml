@@ -134,11 +134,11 @@ jobs:
 
     - name: Push snapshot image to GitHub Container Registry
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/develop' }}
-      run: ./godelw docker push --repository ghcr.io/ --tags=snapshot --verbose
+      run: ./godelw docker push --repository ghcr.io/ --tags=snapshot
 
     - name: Push release image to GitHub Container Registry
       if: ${{ github.event_name == 'release' }}
-      run: ./godelw docker push --repository ghcr.io/ --tags=latest,version --verbose
+      run: ./godelw docker push --repository ghcr.io/ --tags=latest,version
 
     # - name: Publish release assets
     #   if: ${{ github.event_name == 'release' }}

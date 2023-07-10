@@ -124,13 +124,12 @@ jobs:
     #     username: ${{ secrets.DOCKERHUB_USERNAME }}
     #     password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-    -
-      name: Login to GitHub Container Registry
+    - name: Login to GitHub Container Registry
       uses: docker/login-action@v1
       with:
         registry: ghcr.io
-        username: ${{ github.repository_owner }}
-        password: ${{ secrets.CR_PAT }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Push snapshot image to GitHub Container Registry
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/develop' }}

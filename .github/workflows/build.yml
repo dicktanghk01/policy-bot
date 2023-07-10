@@ -15,9 +15,6 @@ on:
 jobs:
   Verify:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
 
     env:
       GOPATH: /home/runner/go
@@ -53,6 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      packages: write
     needs:
       - Verify
 
@@ -106,7 +104,7 @@ jobs:
       run: ./godelw dist
 
     - name: Build Docker image
-      run: ./godelw docker build --repository ghcr.io --verbose
+      run: ./godelw docker build --repository ghcr.io/ --verbose
 
     - name: Archive distribution
       uses: actions/upload-artifact@v2
@@ -136,11 +134,11 @@ jobs:
 
     - name: Push snapshot image to GitHub Container Registry
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/develop' }}
-      run: ./godelw docker push --repository ghcr.io --tags=snapshot
+      run: ./godelw docker push --repository ghcr.io/ --tags=snapshot --verbose
 
     - name: Push release image to GitHub Container Registry
       if: ${{ github.event_name == 'release' }}
-      run: ./godelw docker push --repository ghcr.io --tags=latest,version
+      run: ./godelw docker push --repository ghcr.io/ --tags=latest,version --verbose
 
     # - name: Publish release assets
     #   if: ${{ github.event_name == 'release' }}

@@ -15,6 +15,9 @@ on:
 jobs:
   Verify:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
 
     env:
       GOPATH: /home/runner/go

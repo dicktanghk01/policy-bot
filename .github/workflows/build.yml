@@ -117,21 +117,21 @@ jobs:
     # Include them here to avoid exporting the Docker container as an artifact
     #
 
-    - name: Login to Docker Hub
-      if: ${{ github.event_name == 'push' || github.event_name == 'release' }}
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+    # - name: Login to Docker Hub
+    #   if: ${{ github.event_name == 'push' || github.event_name == 'release' }}
+    #   uses: docker/login-action@v1
+    #   with:
+    #     username: ${{ secrets.DOCKERHUB_USERNAME }}
+    #     password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-    - name: Push snapshot image to Docker Hub
-      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/develop' }}
-      run: ./godelw docker push --tags=snapshot
+    # - name: Push snapshot image to Docker Hub
+    #   if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/develop' }}
+    #   run: ./godelw docker push --tags=snapshot
 
-    - name: Push release image to Docker Hub
-      if: ${{ github.event_name == 'release' }}
-      run: ./godelw docker push --tags=latest,version
+    # - name: Push release image to Docker Hub
+    #   if: ${{ github.event_name == 'release' }}
+    #   run: ./godelw docker push --tags=latest,version
 
-    - name: Publish release assets
-      if: ${{ github.event_name == 'release' }}
-      run: ./godelw publish github --add-v-prefix --api-url=${GITHUB_API_URL} --user=palantir --repository=policy-bot --token=${{ secrets.GITHUB_TOKEN }}
+    # - name: Publish release assets
+    #   if: ${{ github.event_name == 'release' }}
+    #   run: ./godelw publish github --add-v-prefix --api-url=${GITHUB_API_URL} --user=palantir --repository=policy-bot --token=${{ secrets.GITHUB_TOKEN }}
